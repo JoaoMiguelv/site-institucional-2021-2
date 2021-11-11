@@ -29,7 +29,7 @@ html {
 }
 header {
   display: flex;
-  justify-content: center;  /* centralização horizontal */
+  justify-content: space-between;  /* centralização horizontal */
   align-items: center;  /* centralização vertical */
   background-color: var(--cor-prim);
   min-height: 50px; /* altura mínima */
@@ -37,7 +37,33 @@ header {
 }
 #img-logo {
   background-color: transparent;
+  margin: 20px;
 }
+
+#social ul {
+  list-style: none;
+  display: flex;
+  margin: 20px;
+}
+
+#social ul li img {
+  width: 40px;
+  filter: brightness(0.15);
+}
+
+#social ul li a {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+  color: var(--cor-fundo);
+  text-decoration: none; 
+}
+
+#social ul li a span {
+  margin-left: 6px;
+}
+
 #menu-principal {
   display: flex;
   justify-content: center;  /* centralização horizontal */
@@ -124,8 +150,8 @@ section > h1 { /* O sinal de > indica que serão atingidos apenas
   text-shadow: -1px -1px 1px rgba(255, 255, 255, 0.4);
 }
 
-/* Regra para os títulos h1 que estão dentro dos articles */
-article > h1 {
+/* Regra para os títulos h1 que estão dentro dos articles do mais*/
+section > article > h1 {
   text-align: right;
   width: 100%;
   color: var(--cor-texto);
@@ -155,7 +181,7 @@ article > h1 {
 /* Regra para o link de .cartao-carro quando o mouse sobrevoa */
 .cartao-carro a:hover div {
   filter: brightness(1.2);
-  box-shadow: 3px 3px 6px rgba(255, 255, 255, 0.15);
+  box-shadow: 3px 3px 6px rgba(138, 100, 100, 0.15);
 }
 
 /* Regra para a div interna de .cartao-carro */
@@ -185,13 +211,37 @@ article > h1 {
 
 aside {
   display: flex;
-  justify-content: center;  /* centralização horizontal */
+  justify-content: left;  /* alinhamento inicial */
   align-items: center;  /* centralização vertical */
-  border: 1px dashed dimgray;
-  background-color: lightgrey;
+  background-color: var(--cor-fundo);
+  margin: 20px;
+  padding: 16px;
+  border-radius: 16px;
   width: 25%;
-  margin: 5px;
+  color: var(--cor-texto);
+  font-size: 1.2rem;
+  flex-direction: column;
 }
+
+aside article {
+  text-align: center;
+  margin: 50px 0;
+  padding: 30px 20px;
+  border: 3px groove var(--cor-texto);
+  border-radius: 8px;
+}
+
+aside a { /* links dentro do aside */
+  color: var(--cor-prim-clara);
+  text-decoration: none;
+}
+
+aside a:hover {
+  color:  var(--cor-prim);
+  text-decoration: underline;
+}
+
+
 article {
   display: flex;
   justify-content: center;  /* centralização horizontal */
@@ -203,17 +253,83 @@ article {
   width: 100%;
 }
 
-/* Regras para tela com largura de até 600px */
-@media screen and (max-width: 600px) {
+/************************************************************
+                REGRAS DE RESPONSIVIDADE - Bootstrap
+************************************************************/
 
-  main {
-    /* muda a direção dos filhos para coluna (vertical) */
+/* Dispositivos (celulares) pequenos */
+/* do MAIOR para o MENOR = max-width
+   do MENOR para o MAIOR = min-width*/
+/* O padrão do nosso CSS é para telas > 1200px */
+
+/* Computadores com tela pequena */
+@media (max-width: 1200px){
+  body{
+    filter: hue-rotate(45deg);
+  }
+
+  #social ul li a span{
+    display: none; /* remove o texto das redes sociais / Não preserva o espaço do elemento*/
+  }
+
+  main{
+    flex-direction: column; /* Ajusta o flex-direction do main para column para passar o aside para baixo */
+  }
+
+  section, aside{ /* sectio e aside passam a ter largura de 100% */
+    width: calc(100% - 40px) /* Usa a função calc() para descontar os 40px das margens laterais */
+  }
+
+  aside {
+    flex-direction: row; /* Os anúncios do article ficam na horizontal */
+    align-items: stretch; /* Faz com que os articles fiquem com a mesma altura */
+  }
+
+  aside article {
+    margin: 0 30px; /* distância lateral do itens */
+  }
+
+}
+
+/* Dispositivos (tablets) */
+@media (max-width: 992px){
+  body{
+    filter: hue-rotate(90deg);
+  }
+  /* Não necessita de ajuste */
+}
+
+/* Dispositivos (celulares) médios */
+@media (max-width: 768px){
+  body{
+    filter: hue-rotate(120deg);
+  }
+  /* RECOLHER MENU */
+  aside{
+  flex-direction: column; /* Os anúncios do article voltam a ficar na vertical */
+  align-items: flex-start; /* Desliga o "streetch do breakpoint anterior" */
+  }
+  
+  aside article {
+    margin: 30px 0;
+  }
+
+  footer { /* Empilhar os elementos do footer */
     flex-direction: column;
   }
 
-  /* section e aside ficam com 100% de largura */
-  section, aside {
-    width: 100%;
+  footer img, footer address {
+    margin-bottom: 20px;
   }
 
+}
+
+@media (max-width: 576px){
+  body{
+    filter: hue-rotate(135deg);
+  }
+
+  header { /* Empilhar os elementos do header */
+    flex-direction: column;
+  }
 }
